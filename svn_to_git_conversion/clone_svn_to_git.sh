@@ -7,6 +7,10 @@ SVN_DIR=directory-of-interest
 
 SVN_USERNAME=replace_with_valid_svn_username
 
+# Change CONVERT_SVN_TAGS_TO_GIT_TAGS to false to skip tag conversion
+CONVERT_SVN_TAGS_TO_GIT_TAGS=true
+#CONVERT_SVN_TAGS_TO_GIT_TAGS=false
+
 # Change DELETE_SPECIFIC_TAGS to false to skip tag deletion
 DELETE_SPECIFIC_TAGS=true
 #DELETE_SPECIFIC_TAGS=false
@@ -25,7 +29,11 @@ cd $SVN_DIR-tmp.git
 git svn init $SVN_ROOT/$SVN_DIR/ --stdlayout --no-metadata --username $SVN_USERNAME
 git config svn.authorsfile ~/svnusers.txt
 git svn fetch --username $SVN_USERNAME
-~/make_git_tags_for_svn_tags.sh
+
+if $CONVERT_SVN_TAGS_TO_GIT_TAGS
+then
+    ~/make_git_tags_for_svn_tags.sh
+fi
 
 if $DELETE_SPECIFIC_TAGS
 then
