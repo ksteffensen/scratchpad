@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# Converts 
+#
+# Credit to Thomas Rast http://thomasrast.ch/git/git-svn-conversion.html
+#
+# This script adds the ability to filter which tags are converted by setting TAG_TEST
+# to true.
+#
 
 # Change TAG_TEST to false in order to convert all tags
 TAG_TEST=true
@@ -9,6 +17,8 @@ while read tag
 do
     # If TAG_TEST is set to true, modify the tests in the second group to meet your 
     # specific needs
+    # This example will only convert tags that contain "/2." or "/3." 
+    # and do not contain "rev"
     if ( ! $TAG_TEST ) || ( [[ $tag == */2.* ]] || [[ $tag == */3.* ]] && [[ $tag != *rev* ]] )
     then
         echo "Git Tag Created: $tag"
