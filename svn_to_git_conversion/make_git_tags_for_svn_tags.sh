@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Converts 
+# Converts svn tags to git tags after using git svn to clone an svn repo
+# into a git repo
 #
 # Credit to Thomas Rast http://thomasrast.ch/git/git-svn-conversion.html
 #
