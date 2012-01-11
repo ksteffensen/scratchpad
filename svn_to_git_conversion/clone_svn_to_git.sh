@@ -1,4 +1,13 @@
 #!/bin/bash
+#
+# Converts svn tags to git tags after using git svn to clone an svn repo
+# into a git repo
+#
+# Credit to Jon Maddox 
+# http://www.jonmaddox.com/2008/03/05/cleanly-migrate-your-subversion-repository-to-a-git-repository/ 
+# and Thomas Rast 
+# http://thomasrast.ch/git/git-svn-conversion.html
+#
 
 SVN_ROOT=svn://localhost/
 
@@ -29,6 +38,9 @@ cd $SVN_DIR-tmp.git
 git svn init $SVN_ROOT/$SVN_DIR/ --stdlayout --no-metadata --username $SVN_USERNAME
 git config svn.authorsfile ~/svnusers.txt
 git svn fetch --username $SVN_USERNAME
+
+# Removes empty commits (from svn copy, etc.)
+git filter-branch --prune-empty --tag-name-filter cat -- --all
 
 if $CONVERT_SVN_TAGS_TO_GIT_TAGS
 then
